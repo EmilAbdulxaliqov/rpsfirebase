@@ -5,58 +5,136 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://www.gstatic.com/devrel-devsite/prod/vb06d4bce6b32c84cf01c36dffa546f7ea4ff7fc8fcd295737b014c1412e4d118/firebase/images/touchicon-180.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
-    <title>Rock Paper Scissors FireBase</title>
+    <title>Rock-Paper-Scissors</title>
 </head>
 <body>
-    <header>
-        <h1>Rock Paper Scissors</h1>
-    </header>
-    <section>
-        <div class="input">
-            <input type="text" name="username" id="username" placeholder="Enter username       👤"  required maxlength="20">
-            <button id="start">Start</button>
-        </div>
-        
-        <span class="playerturn"></span><span>turn</span>
-    </section>
-    <div class="main">
-        <div class="left-side">
-            <h4 class="waiting1">Waiting for Player1</h4>
-            <h4 class="player1"></h4>
-            <p class="answer"></p>
-            <div class="choices">
-                <button id ="rock1">Rock 🪨</button>
-                <button id ="paper1">Paper 🧾</button>
-                <button id ="scissors1">Scissors ✂️</button>
-            </div>
-        </div>
-        <div class="versus">
-            <span class="left-player-choice">Rock</span> <span>V/S</span> <span class="right-player-choice">Paper</span>
-        </div>
-        <div class="right-side">
-            <h4 class="waiting2">Waiting for Player2</h4>
-            <h4 class="player2"></h4>
-            <p class="answer"></p>
-            <div class="choices">
-                <button id="rock2">Rock 🪨</button>
-                <button id="paper2">Paper 🧾</button>
-                <button id="scissors2">Scissors ✂️</button>
-            </div>
-        </div>
+
+    <div class="container">
+        <!-- Welcome page section -->
+        <div class="jumbotron mt-4" >
+            <h1 class="text-center bolder">Welcome <i class="fas fa-hand-rock"></i> <i class="fas fa-hand-paper"></i> <i class="fas fa-hand-scissors"></i> Game</h1>
+            <h2 class="text-center bold">Enter username to start the game</h2>
+         </div>
+
+         <!-- Players form control -->
+         <div class="form-panel mb-5" >
+            <form id="name-form">
+                <input type="text" id="name-input" placeholder="Enter Username" required>
+                <button id="add-name" type="submit">Submit</button>
+            </form>
+         </div>
+
+         <!-- Game Data Section -->
+         <div class="panel panel-default mb-5">
+		    <div class="row"> <!-- Game Data Row -->
+		    	<!-- Player 1 Section -->
+		        <div class="col-lg-4 col-md-4 col-sm-4">
+		            <div class="panel panel-default playerPanel" id="playerPanel1">
+		                <div class="panel-heading panelName">
+							<h3 class="panel-title text-center" id="playerOneName"></h3>
+						</div>
+
+		                <div class="panel-body panel-option text-center">
+		                	<div class="option Rock"><i class="fas fa-hand-rock"></i></div>
+		                </div>
+
+		                <div class="panel-body panel-option text-center">
+		                	<div class="option Paper"><i class="fas fa-hand-paper"></i></div>
+		                </div>
+
+		                <div class="panel-body panel-option text-center">
+		                	<div class="option"><i class="fas fa-hand-scissors"></i></div>
+		                </div>
+
+
+		                <div class="panel-body panel-stats text-center">
+		                	<div class="stats" id="player1Stats"></div>
+		                </div>
+		            </div>
+		        </div> 
+		        
+		        <!-- Game Output Section -->
+		        <div class="col-lg-4 col-md-4 col-sm-4">
+		            <div class="panel panel-default game-panel">
+		            	<h3 class="panel-title text-center" id="waitingNotice"></h3>
+		            	<h3 class="panel-title text-center" id="roundOutcome">Rock-Paper-Scissors</h3>
+		            </div>
+		        </div> 
+		        
+		        <!-- Player 2 Section -->
+		        <div class="col-lg-4 col-md-4 col-sm-4">
+		            <div class="panel panel-default playerPanel" id="playerPanel2">
+		                <div class="panel-heading panelName">
+							<h3 class="panel-title text-center" id="playerTwoName"></h3>
+						</div>
+
+                        <div class="panel-body panel-option text-center">
+		                	<div class="option"><i class="fas fa-hand-rock"></i></div>
+		                </div>
+
+		                <div class="panel-body panel-option text-center" >
+		                	<div class="option" ><i class="fas fa-hand-paper"></i></div>
+		                </div>
+
+		                <div class="panel-body panel-option text-center">
+		                	<div class="option"><i class="fas fa-hand-scissors"></i></div>
+		                </div>
+
+
+		                <div class="panel-body panel-stats text-center">
+		                	<div class="stats" id="player2Stats"></div>
+		                </div>
+		            </div>
+		        </div> 
+		        
+		    </div> 
+		</div> 
+
+        <!-- Chat Section -->
+        <div class="row mb-5">
+
+	    	<div class="col-lg-8 col-md-8 col-sm-8 chat-color">
+	    		<div id="chatDisplay"></div>
+	    	</div>
+
+		    <div class="col-sm-4 flexible"> 
+		    	<div class="chatInput">
+		    		<div class="chatLabel">Write Your Message!</div>
+
+					<div class="chatPanel"> 
+						<form id="chat-form">
+							<textarea type="text" id="chat-input"></textarea>
+                            <button type="submit" id="chat-send">Send <i class="fas fa-comments-dollar"></i></button>
+						</form>
+					</div>
+				</div>
+	      	</div> 
+
+	    </div>
+
+
+
     </div>
-    <footer class="message">
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <input type="text" name="message" id="message" placeholder="Enter your message here ✍️✍️✍️✍️">
-        <button id="send">Send</button>
-    </footer>
 
-        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
 
-        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
- 
-       <script src="./config.js"></script>
 
-       <script src="./script.js"></script>
+
+    
+
+
+
+
+	<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="./config.js"></script>
+	<script src="./script.js"></script>
+	
 </body>
 </html>
